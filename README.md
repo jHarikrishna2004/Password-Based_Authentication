@@ -38,7 +38,7 @@ Technologies Used
 ___________________________________________________________________
 Installation
 1. Clone the repository
-   git clone https://github.com/yourusername/passwordcheck.git
+   git clone [https://github.com/yourusername/passwordcheck.git](https://github.com/jHarikrishna2004/Password-Based_Authentication.git)
    cd passwordcheck
 2. Install backend dependencies
    pip install -r requirements.txt
