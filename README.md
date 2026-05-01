@@ -1,5 +1,5 @@
 Password Strength Checker Project
-___________________________________________________________________
+-------------------------------------------------------------------
 Description
 
 This repository contains the source code for a Flask-based Password Strength Checker Web Application. The project validates user passwords based on security rules and provides feedback such as Weak, Medium, or Strong. If the password is strong, the user is granted access to a protected “About” page.
