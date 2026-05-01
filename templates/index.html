@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Smart Password Project</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #141e30, #243b55);
+        color: white;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        background: rgba(255,255,255,0.1);
+        padding: 25px;
+        border-radius: 15px;
+        width: 320px;
+        text-align: center;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    input {
+        width: 90%;
+        padding: 10px;
+        margin-top: 15px;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+    }
+
+    button {
+        width: 100%;
+        margin-top: 15px;
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        background: #00c6ff;
+        color: white;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #0072ff;
+    }
+
+    .msg {
+        margin-top: 10px;
+        font-size: 14px;
+    }
+
+    .weak { color: #ff4d4d; }
+    .medium { color: #ffcc00; }
+    .strong { color: #00ff99; }
+
+    .page {
+        display: none;
+        text-align: center;
+        padding: 40px;
+    }
+
+    ul {
+        text-align: left;
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="card" id="loginBox">
+    <h2>Enter Password</h2>
+    <p>Password will be checked for strength</p>
+
+    <input type="password" id="password" placeholder="Enter password">
+    <button onclick="checkPassword()">Submit</button>
+
+    <div class="msg" id="message"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="aboutPage">
+    <h2>About My Project</h2>
+    <h1>PASSWORD STRENGTH CHECKER</h1>
+    <p>This page opens only when a STRONG password is entered.</p>
+    <p>This is a mini project it is a web-based login system that 
+        demonstrates both frontend design and real authentication concepts. 
+        It starts with a secure login interface where users enter their 
+        credentials, and depending on the implementation, it either checks
+        password strength on the client side or uses a backend service like 
+        Firebase for real authentication. Once the correct or strong credentials
+        are provided, the user is granted access to an “About” or project page,
+        which displays the main content. The project focuses on creating a modern, 
+        user-friendly interface with HTML and CSS while also integrating security 
+        logic using JavaScript and authentication services,making it a simple but 
+        practical example of how real-world login systems work in web applications.</p>
+</div>
+
+<script>
+function checkStrength(password) {
+    let score = 0;
+
+    if (password.length >= 8) score++;
+    if (/[A-Z]/.test(password)) score++;
+    if (/[a-z]/.test(password)) score++;
+    if (/[0-9]/.test(password)) score++;
+    if (/[^A-Za-z0-9]/.test(password)) score++;
+
+    if (score <= 2) return "weak";
+    if (score === 3 || score === 4) return "medium";
+    return "strong";
+}
+
+function checkPassword() {
+    let pwd = document.getElementById("password").value;
+    let msg = document.getElementById("message");
+
+    let strength = checkStrength(pwd);
+
+    if (strength === "strong") {
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("aboutPage").style.display = "block";
+    }
+
+    else if (strength === "medium") {
+        msg.className = "msg medium";
+        msg.innerHTML = `
+            ⚠ Medium password detected.<br>
+            Try improving it like:
+            <ul>
+                <li>Add special characters (!,@,#)</li>
+                <li>Use uppercase + lowercase</li>
+                <li>Increase length (8+ chars)</li>
+            </ul>
+            Example: <b>MyProject@2026</b>
+        `;
+    }
+
+    else {
+        msg.className = "msg weak";
+        msg.innerHTML = `
+            Alert! Weak password detected.<br><br>
+            Suggested strong passwords:
+            <ul>
+                <li>Strong@2026#Password</li>
+                <li>Agra@123Strong!</li>
+                <li>Myweb#Secure99</li>
+            </ul>
+        `;
+    }
+}
+</script>
+
+</body>
+</html>
